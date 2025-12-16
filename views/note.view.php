@@ -7,6 +7,6 @@
 </head>
 <body>
     <h1>Show a note</h1>
-    <?php echo $note['body'] ?>
+    <?php  echo htmlspecialchars( $note['body'] )?>
 </body>
 </html>

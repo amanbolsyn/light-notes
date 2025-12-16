@@ -7,4 +7,10 @@ function dd($value){
     die();
 }
 
+function authorize($isAuth, $status = 403){
+   if(!$isAuth){
+     abort(Response::FORBIDDEN);
+   }
+}
+
 ?>

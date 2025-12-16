@@ -9,7 +9,10 @@
     <h1>Show notes</h1>
 
     <?php foreach($notes as $note): ?>
-        <a href = "/note?id=<?= $note['note_id'] ?>" > <?= $note['body'] ?> </a><br>
+        <a href = "/note?id=<?= $note['note_id'] ?>" > <?= htmlspecialchars( $note['body']) ?> </a><br>
     <?php endforeach; ?>
+
+    <br>
+    <a href = "/note/create" >Create a note</a>
 </body>
 </html>
