@@ -20,7 +20,7 @@ $db = new Database($config['database'], "root", $env['DB_PASSWORD']);
 $router = new Router($db);
 require base_path("routes.php");
 $uri = parse_url($_SERVER["REQUEST_URI"])["path"];
-$method = $_SERVER["REQUEST_METHOD"];
+$method = $_POST['__method'] ?? $_SERVER["REQUEST_METHOD"];
 
 $router->route($uri, $method);
 
