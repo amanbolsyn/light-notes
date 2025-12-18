@@ -2,54 +2,68 @@
 
 namespace Core;
 
+use Core\Middleware\Guest;
+use Core\Middleware\Auth;
+use Core\Middleware\Middleware;
+
 class Router
 {
     protected $routes = [];
 
-    protected function add($method, $uri, $controller) {
-        $this->routes[] = compact("method", "uri", "controller");
+    protected function add($method, $uri, $controller,)
+    {
+        $this->routes[] = [
+            "method" => $method,
+            "uri" => $uri,
+            "controller" => $controller, 
+            "middlewware" => null, 
+        ];
+
+        return $this;
     }
 
 
-   public function get($uri, $controller)
+    public function get($uri, $controller)
     {
-        $this->add("GET", $uri, $controller);
+        return $this->add("GET", $uri, $controller);
     }
 
     public function post($uri, $controller)
     {
-        $this->add("POST", $uri, $controller);
+        return $this->add("POST", $uri, $controller);
     }
 
     public function delete($uri, $controller)
     {
-        $this->add("DELETE", $uri, $controller);
+        return $this->add("DELETE", $uri, $controller);
     }
 
     public function patch($uri, $controller)
     {
-        $this->add("PATCH", $uri, $controller);
+        return $this->add("PATCH", $uri, $controller);
     }
 
     public function put($uri, $controller)
     {
-        $this->add("PUT", $uri, $controller);
+        return $this->add("PUT", $uri, $controller);
     }
 
-    public function route($uri, $requestMethod){
+    public function route($uri, $requestMethod)
+    {
 
-          $requestMethod = strtoupper($requestMethod);
+        $requestMethod = strtoupper($requestMethod);
 
-          foreach($this->routes as $route){
-                if($route['uri'] === $uri && $route['method'] === $requestMethod){
+        foreach ($this->routes as $route) {
+            if ($route['uri'] === $uri && $route['method'] === $requestMethod) {
 
-                    require base_path($route['controller']);
-                    return;
-                }
-          }
+                Middleware::resolve($route["middleware"]);
+                 
+                require base_path($route['controller']);
+                return;
+            }
+        }
 
-          $this->abort();
-
+        $this->abort();
     }
 
     protected function abort($code = 404)
@@ -59,7 +73,8 @@ class Router
         die;
     }
 
-
-
-
+    function only($key)
+    {
+        $this->routes[array_key_last($this->routes)]['middleware'] = $key;
+    }
 }

@@ -1,15 +1,19 @@
 <?php
 
-namespace Core; 
+namespace Core;
 
-class Validator{
+class Validator
+{
 
-     public static function Text($value, $min = 1, $max = INF){ 
+   public static function Text($value, $min = 1, $max = INF)
+   {
 
-        $value = trim($value);
-        return strlen($value)>= $min && strlen($value)<= $max;
+      $value = trim($value);
+      return strlen($value) >= $min && strlen($value) <= $max;
+   }
 
-     }
+   public static function Email($value)
+   {
+      return filter_var($value, FILTER_VALIDATE_EMAIL);
+   }
 }
-
-?>
