@@ -11,29 +11,29 @@ class Router
     }
 
 
-   public function get($uri, $conroller)
+   public function get($uri, $controller)
     {
-        $this->add("GET", $uri, $conroller);
+        $this->add("GET", $uri, $controller);
     }
 
-    public function post($uri, $conroller)
+    public function post($uri, $controller)
     {
-        $this->add("POST", $uri, $conroller);
+        $this->add("POST", $uri, $controller);
     }
 
-    public function delete($uri, $conroller)
+    public function delete($uri, $controller)
     {
-        $this->add("DELETE", $uri, $conroller);
+        $this->add("DELETE", $uri, $controller);
     }
 
-    public function patch($uri, $conroller)
+    public function patch($uri, $controller)
     {
-        $this->add("PATCH", $uri, $conroller);
+        $this->add("PATCH", $uri, $controller);
     }
 
-    public function put($uri, $conroller)
+    public function put($uri, $controller)
     {
-        $this->add("PUT", $uri, $conroller);
+        $this->add("PUT", $uri, $controller);
     }
 
     public function route($uri, $requestMethod){

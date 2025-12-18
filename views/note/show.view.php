@@ -10,7 +10,8 @@
 <body>
     <h1>Show a note</h1>
     <p><?= htmlspecialchars($note['body']) ?></p>
-    <a href="/notes"> go back </a><br><br>
+    <a href="/notes"> go back </a>
+    <a href="/note/edit?id=<?= $note['note_id'] ?>" >Edit</a><br><br>
     <form method="POST">
         <input hidden name="note_id" value = "<?= $note['note_id'] ?>">
         <input hidden name="__method" value="DELETE">
