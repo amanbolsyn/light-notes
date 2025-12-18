@@ -1,7 +1,11 @@
 <?php
 
+use Core\App; 
+
 $heading = "Note";
 $note_id = $_GET["id"];
+
+$db = App::container()->resolve("Core\Database");
 
 $note = $db->query("select * from notes where note_id = :note_id", 
    ["note_id"=> $note_id])->fetchOrAbort();

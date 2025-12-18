@@ -4,15 +4,7 @@ namespace Core;
 
 class Router
 {
-
-
     protected $routes = [];
-    protected $db; 
-
-    function __construct($db)
-    {
-        $this->db = $db; 
-    }
 
     protected function add($method, $uri, $controller) {
         $this->routes[] = compact("method", "uri", "controller");
@@ -51,7 +43,6 @@ class Router
           foreach($this->routes as $route){
                 if($route['uri'] === $uri && $route['method'] === $requestMethod){
 
-                    $db = $this->db;
                     require base_path($route['controller']);
                     return;
                 }

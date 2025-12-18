@@ -1,6 +1,7 @@
 <?php
 
 use Core\Validator;
+use Core\App;
 
 $errors = [];
 
@@ -17,6 +18,8 @@ if (!empty($errors)) {
         ]
     );
 }
+
+$db = App::container()->resolve("Core\Database");
 
 $db->query(
     "insert into notes(body, user_id) values(:body, :user_id)",
