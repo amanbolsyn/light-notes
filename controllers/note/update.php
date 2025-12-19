@@ -14,7 +14,7 @@ $note = $db->query("select * from notes where note_id = :note_id", [
 ])->fetchOrAbort();
 
 //authorize the user
-authorize($note['user_id'] === 2);
+authorize($note['user_id'] === $_SESSION['user']['id']);
 //validate new edited note
 if (!Validator::TEXT($_POST['body'], 1, 100)) {
     $errors['message'] = "Text has to no more than 100 characters";

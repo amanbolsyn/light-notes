@@ -16,12 +16,9 @@
 
     <br>
     <a href="/note/create">Create a note</a><br>
-    <?php 
-    if ($_SESSION['user'] ?? false){
-        echo '<a href="/logout">Log out</a>';
-     } else{ 
-        echo '<a href="/register">Register</a>';
-     } ?>
+    
+    <a href="/logout">Log out</a>
+
 </body>
 
 </html>

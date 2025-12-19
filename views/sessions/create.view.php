@@ -6,17 +6,17 @@
     <title><?= $heading ?></title>
 </head>
 <body>
-    <form method = "POST" action = "/register" >
+    <form method = "POST" action = "/login" >
         <label for = "email">Login</label>
         <input id="email" name="email"> <br>
                 <a><?= isset($errors['email']) ? $errors['email'] : '' ?></a><br><br>
         <label for = "password">Password</label>
         <input id = "password" name="password"><br>
                 <a><?= isset($errors['password']) ? $errors['password'] : '' ?></a><br>
-        <button>Register</button>
+        <button>Log in</button>
     </form><br>
 
-    <a href = "/login">Log in</a>
+    <a href = "/register">Register</a>
     
 </body>
 </html>

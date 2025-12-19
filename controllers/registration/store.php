@@ -43,13 +43,18 @@ if ($user) {
     //if not, create new user by saving to inot database
     $db->query("insert into users(email, password) values (:email, :password)", [
         "email" => $email,
-        "password" => $password,
+        "password" => password_hash($password, PASSWORD_BCRYPT),
     ]);
+
+    $id = $db->query("select id from users where email = :email", [
+        "email" => $email,
+    ])->fetch(); 
+
 
     //Mark that user is logged in
     $_SESSION['logged_in'] = true;
     $_SESSION['user'] = [
-        'email' => $email,
+        "id" => $id['id'],
     ];
 
     //Redirect 

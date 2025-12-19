@@ -25,7 +25,7 @@ $db->query(
     "insert into notes(body, user_id) values(:body, :user_id)",
     [
         "body" => $_POST["body"],
-        "user_id" => 2,
+        "user_id" => $_SESSION['user']['id'],
     ]
 );
 

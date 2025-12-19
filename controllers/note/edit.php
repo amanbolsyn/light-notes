@@ -12,7 +12,7 @@
     "note_id" => $note_id,
  ])->fetchOrAbort();
 
- authorize($note['user_id'] === 2);
+ authorize($note['user_id'] === $_SESSION['user']['id']);
 
 view ("note/edit.view.php", [
      "heading" => $heading,
