@@ -17,7 +17,10 @@
     <br>
     <a href="/note/create">Create a note</a><br>
     
-    <a href="/logout">Log out</a>
+    <form method = "POST" action="/login">
+       <input hidden name = "__method" value = "DELETE">
+       <button>Log out</button>
+    </form>
 
 </body>
 
