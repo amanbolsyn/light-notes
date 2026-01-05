@@ -19,8 +19,9 @@ $container = new Container();
 
 $container->bind("Core\Database", function() {
   $config = require base_path("config.php");
-  $env = parse_ini_file(base_path(".env"));
-  return new Database($config['database'], "root", $env['DB_PASSWORD']);
+  //password retrival 
+  // $env = parse_ini_file(base_path(".env"));
+  return new Database($config['database'], "root");
 });
 
 App::setContainer($container);
