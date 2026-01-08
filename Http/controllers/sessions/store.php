@@ -1,25 +1,18 @@
 <?php
 
-use Core\Validator;
-use Core\App; 
+use Core\App;
+use Http\Forms\LoginForm;
 
 $email = $_POST['email'];
 $password = $_POST['password'];
 $errors = [];
 
+$form = new LoginForm;
 
-if(!Validator::Email($email)){
-    $errors['email'] = "Unvalid email";
-}
-
-if(!Validator::Text($password)){
-    $errors['password'] = "password was not provided";
-}
-
-if(!empty($errors)) {
+if(! $form->validate($email, $password)) {
      return view("sessions/create.view.php", [
         "heading" =>"Login",
-        "errors" => $errors, 
+        "errors" => $form->errors(),
      ]); 
 }
 
