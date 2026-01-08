@@ -10,7 +10,7 @@ class App{
           static::$container = $container; 
     }
 
-    public static function  container(){
+    public static function container(){
         return static::$container;
     }
 }

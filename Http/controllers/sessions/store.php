@@ -1,6 +1,6 @@
 <?php
 
-use Core\App;
+use core\Middleware\Authenticator;
 use Http\Forms\LoginForm;
 
 $email = $_POST['email'];
@@ -9,38 +9,23 @@ $errors = [];
 
 $form = new LoginForm;
 
-if(! $form->validate($email, $password)) {
-     return view("sessions/create.view.php", [
-        "heading" =>"Login",
-        "errors" => $form->errors(),
-     ]); 
-}
+//validating the credentials 
+if ($form->validate($email, $password)) {
 
-$db = App::container()->resolve("Core\Database");
+    $auth = new Authenticator();
 
-$user = $db->query("select * from users where email = :email", [
-    "email" => $email, 
-])->fetch();
-
-if($user){
-    if(password_verify($password, $user['password'])){
-         $_SESSION['user'] = [
-            "id" => $user['id'],
-         ];
-
-         header("location: /notes"); 
-    } else {
-        $errors['password'] = "password incorect"; 
+    //attempting to log in 
+    if ($auth->attempt($email, $password)) {
+        redirect("/notes");
     }
-} else {
-    $errors['email'] = "email was not registered";
+
+    $form->error('email', 'incorrect credentials');
+    $form->error('password', 'incorrect credentials');
+
 }
 
-if(!empty($errors)) {
-     return view("sessions/create.view.php", [
-        "heading" =>"Login",
-        "errors" => $errors['email'] = "", 
-     ]); 
-}
-
-?>
+//failed to log in 
+return view("sessions/create.view.php", [
+    "heading" => "Login",
+    "errors" => $form->errors(),
+]);

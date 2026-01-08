@@ -28,4 +28,9 @@ class LoginForm
     public function errors(){
         return $this->errors; 
     }
+
+    //adding custom error message 
+    public function error($field, $message){
+           $this->errors[$field] = $message; 
+    }
 }
