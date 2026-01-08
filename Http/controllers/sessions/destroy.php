@@ -1,6 +1,6 @@
 <?php
 
-use core\Middleware\Session;
+use core\Session;
 
 Session::destroy();
 redirect("/register");

@@ -1,7 +1,7 @@
 <?php
 
 use core\Middleware\Authenticator;
-use core\Middleware\Session;
+use core\Session;
 use Http\Forms\LoginForm;
 
 $email = $_POST['email'];
@@ -26,6 +26,9 @@ if ($form->validate($email, $password)) {
 }
 
 //failed to log in 
+Session::flash("old", [
+    "email" => $_POST['email'],
+]); 
 Session::flash("errors", $form->errors());
 return redirect("/login");
 

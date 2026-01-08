@@ -1,7 +1,7 @@
 <?php
 
 
-namespace core\Middleware;
+namespace core;
 
 class Session
 {
@@ -31,9 +31,9 @@ class Session
         $_SESSION["_flash"][$key] = $value;
     }
 
-    public static function unflash($key)
-    {
-        unset($_SESSION["_flash"][$key]);
+    public static function unflash(){
+
+        unset($_SESSION["_flash"]);
     }
 
     public static function flush()

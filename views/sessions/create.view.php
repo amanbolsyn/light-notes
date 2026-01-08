@@ -8,7 +8,7 @@
 <body>
     <form method = "POST" action = "/login" >
         <label for = "email">Login</label>
-        <input id="email" name="email"> <br>
+        <input id="email" name="email" value="<?=  old('email')  ?>"> <br>
                 <a><?= isset($errors['email']) ? $errors['email'] : '' ?></a><br><br>
         <label for = "password">Password</label>
         <input id = "password" name="password"><br>
