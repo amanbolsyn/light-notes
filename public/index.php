@@ -4,6 +4,7 @@ use Core\Database;
 use Core\Router;
 use Core\Container;
 use Core\App;
+use core\Middleware\Session;
 
 session_start();
 
@@ -32,4 +33,6 @@ $uri = parse_url($_SERVER["REQUEST_URI"])["path"];
 $method = $_POST['__method'] ?? $_SERVER["REQUEST_METHOD"];
 
 $router->route($uri, $method);
+
+Session::unflash('errors');
 

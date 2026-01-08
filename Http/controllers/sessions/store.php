@@ -1,6 +1,7 @@
 <?php
 
 use core\Middleware\Authenticator;
+use core\Middleware\Session;
 use Http\Forms\LoginForm;
 
 $email = $_POST['email'];
@@ -25,7 +26,10 @@ if ($form->validate($email, $password)) {
 }
 
 //failed to log in 
-return view("sessions/create.view.php", [
-    "heading" => "Login",
-    "errors" => $form->errors(),
-]);
+Session::flash("errors", $form->errors());
+return redirect("/login");
+
+// return view("sessions/create.view.php", [
+//     "heading" => "Login",
+//     "errors" => $form->errors(),
+// ]);
