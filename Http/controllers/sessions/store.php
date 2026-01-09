@@ -1,38 +1,21 @@
 <?php
 
 use core\Middleware\Authenticator;
-use core\Session;
 use Http\Forms\LoginForm;
 
-$email = $_POST['email'];
-$password = $_POST['password'];
-$errors = [];
-
-$form = new LoginForm;
 
 //validating the credentials 
-if ($form->validate($email, $password)) {
+$form = LoginForm::validate($attributes = [
+    'email' => $_POST['email'],
+    'password' => $_POST['password'],
+]);
 
-    $auth = new Authenticator();
+$signedIn = (new Authenticator)->attempt($attributes['email'], $attributes['password']);
 
-    //attempting to log in 
-    if ($auth->attempt($email, $password)) {
-        redirect("/notes");
-    }
-
-    $form->error('email', 'incorrect credentials');
-    $form->error('password', 'incorrect credentials');
-
+//attempting to log in 
+if (! $signedIn) {
+    $form->error('email', 'incorrect credentials')->throw();
 }
 
-//failed to log in 
-Session::flash("old", [
-    "email" => $_POST['email'],
-]); 
-Session::flash("errors", $form->errors());
-return redirect("/login");
 
-// return view("sessions/create.view.php", [
-//     "heading" => "Login",
-//     "errors" => $form->errors(),
-// ]);
+redirect("/notes");

@@ -5,6 +5,7 @@ use Core\Router;
 use Core\Container;
 use Core\App;
 use core\Session;
+use core\ValidationException;
 
 session_start();
 
@@ -18,7 +19,7 @@ spl_autoload_register(function ($class) {
 
 $container = new Container();
 
-$container->bind("Core\Database", function() {
+$container->bind("Core\Database", function () {
   $config = require base_path("config.php");
   //password retrival 
   // $env = parse_ini_file(base_path(".env"));
@@ -32,7 +33,16 @@ require base_path("routes.php");
 $uri = parse_url($_SERVER["REQUEST_URI"])["path"];
 $method = $_POST['__method'] ?? $_SERVER["REQUEST_METHOD"];
 
-$router->route($uri, $method);
+
+try {
+  $router->route($uri, $method);
+} catch (ValidationException $exception) {
+  //failed to log in 
+  Session::flash("old", $exception->old);
+  Session::flash("errors", $exception->errors);
+  
+
+  $router->previousUrl();
+}
 
 Session::unflash();
-

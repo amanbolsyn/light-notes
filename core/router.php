@@ -15,8 +15,8 @@ class Router
         $this->routes[] = [
             "method" => $method,
             "uri" => $uri,
-            "controller" => $controller, 
-            "middlewware" => null, 
+            "controller" => $controller,
+            "middlewware" => null,
         ];
 
         return $this;
@@ -57,8 +57,8 @@ class Router
             if ($route['uri'] === $uri && $route['method'] === $requestMethod) {
 
                 Middleware::resolve($route["middleware"]);
-                 
-                require base_path('Http/controllers/'. $route['controller']);
+
+                require base_path('Http/controllers/' . $route['controller']);
                 return;
             }
         }
@@ -76,5 +76,9 @@ class Router
     function only($key)
     {
         $this->routes[array_key_last($this->routes)]['middleware'] = $key;
+    }
+
+    function previousUrl() {
+        return redirect($_SERVER["HTTP_REFERER"]); 
     }
 }

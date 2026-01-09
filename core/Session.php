@@ -18,7 +18,7 @@ class Session
             return $_SESSION["_flash"][$key];
         }
 
-        return $_SESSION[$key] ?? $default;
+        return $default;
     }
 
     public static function put($key, $value)
