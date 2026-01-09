@@ -1,6 +1,6 @@
 <?php
 
-use core\Session;
+use Core\Session;
 
 $heading = "Log in";
 

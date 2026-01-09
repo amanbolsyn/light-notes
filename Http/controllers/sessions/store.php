@@ -1,6 +1,6 @@
 <?php
 
-use core\Middleware\Authenticator;
+use Core\Middleware\Authenticator;
 use Http\Forms\LoginForm;
 
 

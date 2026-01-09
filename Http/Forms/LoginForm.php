@@ -3,7 +3,7 @@
 
 namespace Http\Forms;
 
-use core\ValidationException;
+use Core\ValidationException;
 use Core\Validator;
 
 

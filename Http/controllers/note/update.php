@@ -1,7 +1,7 @@
 <?php
 
-use core\App;
-use core\Validator;
+use Core\App;
+use Core\Validator;
 
 $db = App::container()->resolve("Core\Database");
 $note_id = $_POST['id'];

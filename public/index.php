@@ -4,25 +4,21 @@ use Core\Database;
 use Core\Router;
 use Core\Container;
 use Core\App;
-use core\Session;
-use core\ValidationException;
+use Core\Session;
+use Core\ValidationException;
 
 session_start();
 
 const BASE_PATH = __DIR__ . "/../";
-require BASE_PATH . ("functions.php");
 
-spl_autoload_register(function ($class) {
-  $class = str_replace("\\", "/", $class);
-  require base_path($class . ".php");
-});
+require BASE_PATH . "/vendor/autoload.php";
+require BASE_PATH . "functions.php";
 
 $container = new Container();
 
 $container->bind("Core\Database", function () {
   $config = require base_path("config.php");
-  //password retrival 
-  // $env = parse_ini_file(base_path(".env"));
+  
   return new Database($config['database'], "root");
 });
 
